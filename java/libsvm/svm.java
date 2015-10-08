@@ -204,8 +204,8 @@ abstract class Kernel extends QMatrix {
 	static double dot(svm_node[] x, svm_node[] y)
 	{
 		double sum = 0;
-		int xlen = x.length;
-		int ylen = y.length;
+		int xlen = x == null ? 0 : x.length;
+		int ylen = y == null ? 0 : y.length;
 		int i = 0;
 		int j = 0;
 		while(i < xlen && j < ylen)

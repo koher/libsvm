@@ -2526,7 +2526,7 @@ public class svm {
 			svm_node[] p = SV[i];
 			if(param.kernel_type == svm_parameter.PRECOMPUTED)
 				fp.writeBytes("0:"+(int)(p[0].value));
-			else	
+			else if (p != null)	
 				for(int j=0;j<p.length;j++)
 					fp.writeBytes(p[j].index+":"+p[j].value+" ");
 			fp.writeBytes("\n");

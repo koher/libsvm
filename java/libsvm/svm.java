@@ -5,6 +5,7 @@
 
 package libsvm;
 import java.io.*;
+import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
 //
@@ -2452,7 +2453,19 @@ public class svm {
 
 	public static void svm_save_model(String model_file_name, svm_model model) throws IOException
 	{
-		DataOutputStream fp = new DataOutputStream(new BufferedOutputStream(new FileOutputStream(model_file_name)));
+		DataOutputStream fp;
+		try {
+			fp = new DataOutputStream(new BufferedOutputStream(
+					(OutputStream) Class.forName("java.io.FileOutputStream")
+							.getConstructor(String.class)
+							.newInstance(model_file_name)));
+		} catch (InstantiationException | IllegalAccessException
+				| IllegalArgumentException | InvocationTargetException
+				| NoSuchMethodException | SecurityException
+				| ClassNotFoundException e) {
+			throw new Error(e);
+		}
+		
 
 		svm_parameter param = model.param;
 
